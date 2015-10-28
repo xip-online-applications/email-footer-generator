@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+
+    <!-- Metadata -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title and description -->
+    <title>Email footer generator</title>
+    <meta name="description" content="An Brick Designs email footer generator.">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body ng-controller="ParserController">
+
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <!-- Header with brand and button -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.brickdesigns.nl">Brick Designs Footer Generator</a>
+        </div>
+
+        <!-- Collapseable part -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" ng-click="load()">Load</a></li>
+                <li><a href="#" ng-click="delete()">Delete</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main content -->
+<main class="main">
+    <div class="container">
+
+        <!-- Jumbo heading -->
+        <div class="jumbotron">
+            <h1>Email footer parser</h1>
+            <p>If you follow the steps below, you can parse a source code with custom tags.</p>
+        </div>
+
+        <!-- The source panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Source code</h3>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="panelStep !== 1">
+                <div class="panel-body">
+
+                    <blockquote>
+                        <p>Paste the source code below.</p>
+                    </blockquote>
+                    <p>
+                        The code you use, may contain tags for automatic recognition.
+                        The tags should start with <code>{{</code> and end with <code>}}</code>.
+                        In between the tags, only valid <code>JSON</code> is available. The
+                        <code>JSON</code> tags that are valid are: <code>type</code>, <code>name</code>,
+                        <code>description</code> and <code>value</code>.
+                    </p>
+
+                    <!-- Source code -->
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" id="source-code" ng-model="sourceCode"></textarea>
+                    </div>
+
+                    <!-- Actions -->
+                    <button type="submit" class="btn btn-primary" ng-click="goToStepTwo()">Next</button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- The input fields panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Input fields</h3>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="panelStep !== 2">
+                <div class="panel-body">
+
+                    <blockquote>
+                        <p>Please enter all data in the boxes below.</p>
+                    </blockquote>
+
+                    <!-- The list of input fields -->
+                    <div class="form-group" ng-repeat="tag in tags">
+                        <label for="input{{tag.ID}}">{{tag.name}}</label>
+                        <input type="{{tag.type}}" class="form-control" id="input{{tag.ID}}" ng-model="tag.value">
+                        <p ng-if="tag.description" class="help-block">{{tag.description}}</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <button type="submit" class="btn btn-primary" ng-click="goToStepThree()">Next</button>
+                    <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+                    <button type="submit" class="btn btn-warning" ng-click="goToStepTwo()">Reset</button>
+                    <button type="submit" class="btn btn-danger pull-right" ng-click="panelStep = 1">Back (will reset everything!)</button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- The parsed source panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Parsed source code</h3>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="panelStep !== 3">
+                <div class="panel-body">
+
+                    <blockquote>
+                        <p>You can copy the source code below and use it as your email footer.</p>
+                    </blockquote>
+
+                    <!-- Source code -->
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" id="parsed-source-code" ng-model="sourceCodeParsed"></textarea>
+                    </div>
+
+                    <!-- Actions -->
+                    <button type="submit" class="btn btn-primary" ng-click="panelStep = 2">Back</button>
+                    <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright &copy; 2015 <a href="http://www.brickdesigns.nl">Brick Designs</a></p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="libs/angular/angular.min.js"></script>
+<script src="libs/angular/angular-sanitize.min.js"></script>
+<script src="libs/ui-bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/parser.controller.js"></script>
+
+<!-- Delete modal -->
+<script type="text/ng-template" id="modalDelete.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Delete footer</h3>
+    </div>
+    <div class="modal-body">
+        <div class="list-group">
+            <a href="#" ng-click="$event.preventDefault(); setItem(item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
+                {{item}}
+            </a>
+            <a class="list-group-item" ng-if="items.length < 1">No footers found</a>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-if="items.length > 0 && name !== null">Delete</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<!-- Load modal -->
+<script type="text/ng-template" id="modalLoad.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Load footer</h3>
+    </div>
+    <div class="modal-body">
+        <div class="list-group">
+            <a href="#" ng-click="$event.preventDefault(); setItem(item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
+                {{item}}
+            </a>
+            <a class="list-group-item" ng-if="items.length < 1">No footers found</a>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-if="items.length > 0 && name !== null">Load</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<!-- Save modal -->
+<script type="text/ng-template" id="modalSave.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Save footer</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="saveName">Name</label>
+            <input type="text" class="form-control" id="saveName" placeholder="Name" ng-model="name">
+            <p class="help-block">Select an item below if you want to override it.</p>
+        </div>
+        <div class="list-group">
+            <a href="#" ng-click="$event.preventDefault(); setItem(item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
+                {{item}}
+            </a>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-if="name !== null">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+</body>
+</html>

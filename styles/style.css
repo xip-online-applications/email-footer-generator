@@ -1,0 +1,32 @@
+/* Some defaults */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-top: 70px;
+    margin-bottom: 60px;
+}
+
+/* Inputs */
+textarea {
+    max-width: 100%;
+}
+
+/* Sticky footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+.footer > .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.footer > .container > p {
+    margin: 0;
+}
+
