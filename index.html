@@ -35,8 +35,7 @@
         <!-- Collapseable part -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" ng-click="load()">Load</a></li>
-                <li><a href="#" ng-click="delete()">Delete</a></li>
+                <li><a ng-click="presets()">Presets</a></li>
             </ul>
         </div>
     </div>
@@ -88,22 +87,22 @@
             </div>
             <div class="panel-collapse collapse" uib-collapse="panelStep !== 2">
                 <div class="panel-body">
+	                <form name="formInputs">
+	                    <h2>Please enter all data in the boxes below.</h2>
 
-                    <h2>Please enter all data in the boxes below.</h2>
+	                    <!-- The list of input fields -->
+	                    <div class="form-group" ng-repeat="tag in tags" ng-class="{ 'has-error': formInputs['input-{{tag.id}}'].$invalid }">
+	                        <label for="input-{{tag.id}}">{{tag.name}}</label>
+	                        <input type="{{tag.type}}" class="form-control" name="input-{{tag.id}}" id="input-{{tag.id}}" ng-model="tag.value">
+	                        <p ng-if="tag.description" class="help-block">{{tag.description}}</p>
+	                    </div>
 
-                    <!-- The list of input fields -->
-                    <div class="form-group" ng-repeat="tag in tags">
-                        <label for="input{{tag.ID}}">{{tag.name}}</label>
-                        <input type="{{tag.type}}" class="form-control" id="input{{tag.ID}}" ng-model="tag.value">
-                        <p ng-if="tag.description" class="help-block">{{tag.description}}</p>
-                    </div>
-
-                    <!-- Actions -->
-                    <button type="submit" class="btn btn-primary" ng-click="goToStepThree()">Next</button>
-                    <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
-                    <button type="submit" class="btn btn-warning" ng-click="goToStepTwo()">Reset</button>
-                    <button type="submit" class="btn btn-danger pull-right" ng-click="panelStep = 1">Back (will reset everything!)</button>
-
+		                <!-- Actions -->
+		                <button type="submit" class="btn btn-primary" ng-click="goToStepThree()" ng-disabled="formInputs.$invalid">Next</button>
+		                <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+		                <button type="submit" class="btn btn-warning" ng-click="goToStepTwo()">Reset</button>
+		                <button type="submit" class="btn btn-danger pull-right" ng-click="panelStep = 1">Edit source code</button>
+	                </form>
                 </div>
             </div>
         </div>
@@ -120,16 +119,16 @@
 
                     <!-- Source code -->
                     <div class="form-group">
-                        <textarea class="form-control" rows="10" id="parsed-source-code" ng-model="sourceCodeParsed"></textarea>
+                        <textarea class="form-control" rows="10" id="parsed-source-code" ng-model="sourceCodeCopyable"></textarea>
                     </div>
 
-		    <!-- Live example -->
+		            <!-- Live example -->
                     <h3>Live example</h3>
 
-		    <!-- Example -->
-		    <div class="panel panel-default">
-			<div class="panel-body" ng-bind-html="sourceCodeParsed | sceHtml"></div>
-		    </div>
+		            <!-- Example -->
+		            <div class="panel panel-default">
+						<div class="panel-body" ng-bind-html="sourceCodeCopyable | sceHtml"></div>
+		            </div>
 
                     <!-- Actions -->
                     <button type="submit" class="btn btn-primary" ng-click="panelStep = 2">Back</button>
@@ -157,25 +156,6 @@
 <script src="js/parser.controller.js"></script>
 <script src="js/sceHtml.filter.js"></script>
 
-<!-- Delete modal -->
-<script type="text/ng-template" id="modalDelete.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Delete footer</h3>
-    </div>
-    <div class="modal-body">
-        <div class="list-group">
-            <a href="#" ng-click="$event.preventDefault(); setItem(item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
-                {{item}}
-            </a>
-            <a class="list-group-item" ng-if="items.length < 1">No footers found</a>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-if="items.length > 0 && name !== null">Delete</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
-    </div>
-</script>
-
 <!-- Load modal -->
 <script type="text/ng-template" id="modalLoad.html">
     <div class="modal-header">
@@ -183,14 +163,15 @@
     </div>
     <div class="modal-body">
         <div class="list-group">
-            <a href="#" ng-click="$event.preventDefault(); setItem(item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
+            <a href="#" ng-click="setItem($event, item)" class="list-group-item" ng-repeat="item in items" ng-class="{active: name === item}">
                 {{item}}
             </a>
             <a class="list-group-item" ng-if="items.length < 1">No footers found</a>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()" ng-if="items.length > 0 && name !== null">Load</button>
+	    <button class="btn btn-warning" type="button" ng-click="delete()" ng-if="items.length > 0 && name !== null">Delete</button>
+        <button class="btn btn-primary" type="button" ng-click="load()" ng-if="items.length > 0 && name !== null">Load</button>
         <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
