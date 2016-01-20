@@ -60,9 +60,7 @@
             <div class="panel-collapse collapse" uib-collapse="panelStep !== 1">
                 <div class="panel-body">
 
-                    <blockquote>
-                        <p>Paste the source code below.</p>
-                    </blockquote>
+                    <h2>Paste the source code below.</h2>
                     <p>
                         The code you use, may contain tags for automatic recognition.
                         The tags should start with <code>{{</code> and end with <code>}}</code>.
@@ -91,9 +89,7 @@
             <div class="panel-collapse collapse" uib-collapse="panelStep !== 2">
                 <div class="panel-body">
 
-                    <blockquote>
-                        <p>Please enter all data in the boxes below.</p>
-                    </blockquote>
+                    <h2>Please enter all data in the boxes below.</h2>
 
                     <!-- The list of input fields -->
                     <div class="form-group" ng-repeat="tag in tags">
@@ -120,14 +116,20 @@
             <div class="panel-collapse collapse" uib-collapse="panelStep !== 3">
                 <div class="panel-body">
 
-                    <blockquote>
-                        <p>You can copy the source code below and use it as your email footer.</p>
-                    </blockquote>
+                    <h2>You can copy the source code below and use it as your email footer.</h2>
 
                     <!-- Source code -->
                     <div class="form-group">
                         <textarea class="form-control" rows="10" id="parsed-source-code" ng-model="sourceCodeParsed"></textarea>
                     </div>
+
+		    <!-- Live example -->
+                    <h3>Live example</h3>
+
+		    <!-- Example -->
+		    <div class="panel panel-default">
+			<div class="panel-body" ng-bind-html="sourceCodeParsed | sceHtml"></div>
+		    </div>
 
                     <!-- Actions -->
                     <button type="submit" class="btn btn-primary" ng-click="panelStep = 2">Back</button>
@@ -153,6 +155,7 @@
 <script src="libs/ui-bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/parser.controller.js"></script>
+<script src="js/sceHtml.filter.js"></script>
 
 <!-- Delete modal -->
 <script type="text/ng-template" id="modalDelete.html">
