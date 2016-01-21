@@ -29,8 +29,6 @@ function ParserController($scope, $uibModal) {
         $scope.sourceCodeParsed = angular.copy($scope.sourceCode);
         var tags = $scope.sourceCodeParsed.match(/{{([^{}]*)}}/g);
 
-	    console.log($scope.sourceCodeParsed);
-
 	    // Tags found?
 	    if(tags == undefined || tags == null || tags.length <= 0) {
 		    return;
@@ -49,7 +47,7 @@ function ParserController($scope, $uibModal) {
 
 	        // Does the tag exist?
 	        if($scope.tags[parsed.id] !== undefined) {
-		        parsed = angular.extend(parsed, $scope.tags[parsed.id]);
+		        parsed = angular.extend($scope.tags[parsed.id], parsed);
 	        }
 
             // Replace the tag in the code
@@ -58,8 +56,6 @@ function ParserController($scope, $uibModal) {
             // Get the type from the JSON string
             $scope.tags[parsed.id] = parsed;
         });
-
-	    console.log($scope.sourceCodeParsed);
 
         // Go to step two
         $scope.panelStep = 2;
@@ -72,12 +68,11 @@ function ParserController($scope, $uibModal) {
     $scope.goToStepThree = function () {
 	    // Copy source code
 	    $scope.sourceCodeCopyable = angular.copy($scope.sourceCodeParsed);
-	    console.log($scope.sourceCodeCopyable);
 
         // Iterate through all tags
 	    angular.forEach($scope.tags, function(value, key) {
 		    // Replace the tag in the code
-		    $scope.sourceCodeCopyable = $scope.sourceCodeCopyable.replace('{{'+key+'}}', value.value);
+		    $scope.sourceCodeCopyable = $scope.sourceCodeCopyable.replace(new RegExp('{{'+key+'}}', 'g'), value.value);
 	    });
 
         // Go to step two
