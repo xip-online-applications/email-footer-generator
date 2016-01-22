@@ -80,6 +80,15 @@ function ParserController($scope, $uibModal) {
     };
 
     /**
+     * Reset all values
+     */
+    $scope.reset = function() {
+	angular.forEach($scope.tags, function(value, key) {
+		value.value = '';
+	});
+    }
+
+    /**
      * Save all settings in the local storage
      */
     $scope.presets = function() {

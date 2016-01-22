@@ -15,6 +15,40 @@ textarea {
     max-width: 100%;
 }
 
+/* Live example */
+pre.example {
+	max-height: 250px;
+}
+.panel.panel-live-example {
+	position: relative;
+}
+.panel-live-example > .btn {
+	position: absolute;
+	top: 8px;
+	background: transparent;
+	color: #95a5a6;
+}
+.panel-live-example > .btn.btn-desktop {
+	right: 8px;
+}
+.panel-live-example > .btn.btn-tablet {
+	right: 70px;
+}
+.panel-live-example > .btn.btn-mobile {
+	right: 123px;
+}
+.panel-live-example > .panel-body {
+	margin: 0 auto;
+	transition: all 0.5s ease-in-out;
+	max-width: 100%;
+}
+.panel-live-example.mobile > .panel-body {
+	max-width: 320px;
+}
+.panel-live-example.tablet > .panel-body {
+	max-width: 640px;
+}
+
 /* Sticky footer */
 .footer {
     position: absolute;
