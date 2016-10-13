@@ -1,0 +1,25 @@
+{
+  "name": "brick-designs-footer-generator",
+  "version": "1.0.0",
+  "description": "Footer generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/brickdesigns/brick-designs-footer-generator.git"
+  },
+  "author": "Youri Lefers",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/brickdesigns/brick-designs-footer-generator#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "angular-ui-bootstrap": "^2.2.0",
+    "bootstrap": "^3.3.7",
+    "bootswatch": "^3.3.7",
+    "font-awesome": "^4.6.3",
+    "ui-bootstrap": "^0.1.5"
+  }
+}

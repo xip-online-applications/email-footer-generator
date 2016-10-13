@@ -12,10 +12,12 @@
     <meta name="description" content="An Brick Designs email footer generator.">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha256-Av2lUNJFz7FqxLquvIFyxyCQA/VHUFna3onVy+5jUBM= sha512-zyqATyziDoUzMiMR8EAD3c5Ye55I2V3K7GcmJDHbL49cXzFQCEA6flSKqxEzwxXqq73/M4A0jKFFJ/ysEhbExQ==" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootswatch/flatly/bootstrap.min.css">
+	<link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/style.css">
+
 </head>
 <body ng-controller="ParserController">
 
@@ -159,9 +161,10 @@
 </footer>
 
 <!-- Scripts -->
-<script src="libs/angular/angular.min.js"></script>
-<script src="libs/angular/angular-sanitize.min.js"></script>
-<script src="libs/ui-bootstrap/ui-bootstrap-tpls-1.1.0.min.js"></script>
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 <script src="js/app.js"></script>
 <script src="js/parser.controller.js"></script>
 <script src="js/sceHtml.filter.js"></script>
