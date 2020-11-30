@@ -7,6 +7,7 @@ This small application holds the XIP footer generator.
 To build, you first need to run these steps:
 
 ```shell script
+npm i -g @electron-forge/cli
 npm i
 ```
 
