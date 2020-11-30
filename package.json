@@ -1,18 +1,15 @@
 {
-  "name": "brick-designs-footer-generator",
+  "name": "xip-email-footer-generator",
   "version": "1.0.0",
-  "description": "Footer generator",
-  "main": "index.js",
+  "description": "XIP email footer generator",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/brickdesigns/brick-designs-footer-generator.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "author": "Youri Lefers",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/brickdesigns/brick-designs-footer-generator#readme",
+  "homepage": "https://github.com/xip-online-applications/email-footer-generator",
   "dependencies": {
     "angular": "^1.5.8",
     "angular-sanitize": "^1.5.8",
@@ -21,5 +18,8 @@
     "bootswatch": "^3.3.7",
     "font-awesome": "^4.6.3",
     "ui-bootstrap": "^0.1.5"
+  },
+  "devDependencies": {
+    "electron": "^11.0.3"
   }
 }
