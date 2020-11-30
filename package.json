@@ -5,7 +5,10 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "import": "electron-forge import",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Youri Lefers",
   "license": "MIT",
@@ -16,10 +19,44 @@
     "angular-ui-bootstrap": "^2.2.0",
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
+    "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "^4.6.3",
     "ui-bootstrap": "^0.1.5"
   },
   "devDependencies": {
-    "electron": "^11.0.3"
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^11.0.3",
+    "source-map-support": "^0.5.19"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "xip_email_footer_generator"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
